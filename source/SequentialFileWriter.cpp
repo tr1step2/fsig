@@ -9,7 +9,7 @@ fsig::SequentialFileWriter::SequentialFileWriter(const std::string & filename, s
     : mFileName(filename)
     , mSequencesSize(sequencesSize)
     , mStop(false)
-    , mStorage(sequencesSize)
+    , mStorage(sequencesSize + 1)
 {
     mWriteThread.reset(new std::thread ([this]()
     {
@@ -25,7 +25,7 @@ fsig::SequentialFileWriter::SequentialFileWriter(const std::string & filename, s
             {
                 std::lock_guard<std::mutex> lock(mStorageMutex);
 
-                //calc sequunce
+                //calc sequence to write on disk
                 size_t i = 0;
                 for(; i < mStorage.size(); ++i)
                 {
