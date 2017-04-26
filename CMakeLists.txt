@@ -15,9 +15,10 @@ link_directories(${BOOST_LIBRARY_PATH})
 add_executable(${PROJECT_NAME} ${SRC_LIST})
 
 target_link_libraries(${PROJECT_NAME}
-    libboost_system-vc140-mt${DEB}-1_64
-    libboost_date_time-vc140-mt${DEB}-1_64
-    libboost_regex-vc140-mt${DEB}-1_64
-    libboost_thread-vc140-mt${DEB}-1_64
-    libboost_filesystem-vc140-mt${DEB}-1_64
+    boost_system
+    boost_date_time
+    boost_regex
+    boost_thread
+    boost_filesystem
+    pthread
 )

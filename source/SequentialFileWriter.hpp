@@ -20,16 +20,19 @@ struct SequentialFileWriter : IWriter
     virtual bool write_data(const size_t index, const std::string & data) override;
 
 private:
-    size_t mSequencesSize;
+    void try_write();
+
+private:
+    const std::string mFileName;
+    const size_t mSequencesSize;
+    size_t mLastIndex = 0;
+
     std::deque<std::string> mStorage;
 
-    std::string mFileName;
-    std::mutex mStorageMutex;
-    std::mutex mEventMutex;
-    std::condition_variable mWriteEvent;
-    std::unique_ptr<std::thread> mWriteThread;
+    std::recursive_mutex mStorageMutex;
+    std::mutex mWriteMutex;
+    std::condition_variable mEvent;
     std::atomic<bool> mStop;
-    size_t mLastIndex = 0;
 };
 
 } //ns fsig
