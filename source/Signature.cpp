@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "Signature.hpp"
 #include "TextFileReader.hpp"
 #include "SequentialFileWriter.hpp"
@@ -19,15 +17,20 @@ fsig::Signature::Signature(const fsig::Params && params)
     {
         mThreadPool.add([this, i, blockSize, writer]()
         {
+            //Read
+            std::unique_ptr<char[]> buf(new char[blockSize]);
             fsig::IReaderSPtr reader = create_reader(mParams);
 
-            std::unique_ptr<char[]> buf(new char[blockSize]);
-            reader->read_data(blockSize * i, buf.get(), blockSize);
+            size_t readed = reader->read_data(blockSize * i, buf.get(), blockSize);
 
+            //Calc hash
+            std::string data(buf.get(), readed);
             std::string hash;
-            fsig::IDataProcessorSPtr processor = create_dataprocessor(mParams);
-            processor->process_data(std::string(buf.get(), blockSize), hash);
 
+            fsig::IDataProcessorSPtr processor = create_dataprocessor(mParams);
+            processor->process_data(data, hash);
+
+            //Write hash
             writer->write_data(i, hash);
         });
     }

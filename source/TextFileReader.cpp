@@ -1,4 +1,7 @@
+#include <iostream>
+
 #include <fstream>
+#include <cstring>
 
 #include "TextFileReader.hpp"
 
@@ -8,7 +11,7 @@ fsig::TextFileReader::TextFileReader(const std::string & filename)
 {
 }
 
-bool fsig::TextFileReader::read_data(const size_t offset, char * buf, const size_t size)
+size_t fsig::TextFileReader::read_data(const size_t offset, char * buf, const size_t size)
 {
     std::ifstream ifs(mFilename, std::ifstream::in);
     if(!ifs)
@@ -17,5 +20,5 @@ bool fsig::TextFileReader::read_data(const size_t offset, char * buf, const size
     ifs.seekg(offset, std::ios_base::beg);
     ifs.read(buf, size);
 
-    return true;
+    return ifs.gcount();
 }

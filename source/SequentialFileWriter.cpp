@@ -1,6 +1,3 @@
-#include <iostream>
-
-
 #include <fstream>
 #include <iterator>
 #include <algorithm>
@@ -21,7 +18,7 @@ fsig::SequentialFileWriter::~SequentialFileWriter()
     std::lock_guard<std::recursive_mutex> lockStorage(mStorageMutex);
     if (mStorage.size() != 0)
     {
-        std::cout << "BLYAAAA SUKA DA KAK TAK TO A??" << std::endl;
+        throw std::runtime_error("Bad finish. Some data not written.");
     }
 }
 
@@ -42,8 +39,6 @@ void fsig::SequentialFileWriter::try_write()
     {
         std::lock_guard<std::recursive_mutex> lockStorage(mStorageMutex);
 
-
-
         //calc sequence to write on disk
         size_t i = 0;
         for(; i < mStorage.size(); ++i)
@@ -62,7 +57,7 @@ void fsig::SequentialFileWriter::try_write()
         mStorage.erase(mStorage.begin(), mStorage.begin() + i);
     }
 
-    std::lock_guard<std::mutex> write_lock(mWriteMutex);
+    std::lock_guard<std::mutex> writeLock(mWriteMutex);
 
     std::ofstream ofs(mFileName, std::ios_base::app);
 
