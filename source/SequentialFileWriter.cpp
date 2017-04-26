@@ -8,7 +8,6 @@
 fsig::SequentialFileWriter::SequentialFileWriter(const std::string & filename, size_t sequencesSize)
     : mFileName(filename)
     , mSequencesSize(sequencesSize)
-    , mStop(false)
     , mStorage(sequencesSize)
 {
 }

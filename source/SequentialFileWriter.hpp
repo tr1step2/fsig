@@ -31,8 +31,6 @@ private:
 
     std::recursive_mutex mStorageMutex;
     std::mutex mWriteMutex;
-    std::condition_variable mEvent;
-    std::atomic<bool> mStop;
 };
 
 } //ns fsig
