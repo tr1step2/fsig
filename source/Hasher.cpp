@@ -1,7 +1,11 @@
+#include <boost/crc.hpp>
+
 #include "Hasher.hpp"
 
-bool fsig::Hasher::process_data(const std::string &data, std::string &data_out)
+std::string fsig::Hasher::process_data(const std::string & data)
 {
-    data_out = data;
-    return true;
+    boost::crc_32_type result;
+    result.process_bytes(data.data(), data.length());
+
+    return std::to_string(result.checksum());
 }

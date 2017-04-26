@@ -9,7 +9,7 @@ namespace fsig
 struct IDataProcessor
 {
     virtual ~IDataProcessor(){};
-    virtual bool process_data(const std::string & data, std::string & data_out) = 0;
+    virtual std::string process_data(const std::string & data) = 0;
 };
 
 using IDataProcessorSPtr = std::shared_ptr<IDataProcessor>;

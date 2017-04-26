@@ -7,7 +7,7 @@ namespace fsig
 
 struct Hasher : IDataProcessor
 {
-    virtual bool process_data(const std::string & data, std::string & data_out) override;
+    virtual std::string process_data(const std::string & data) override;
 };
 
 } //ns fsig

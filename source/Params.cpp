@@ -5,13 +5,13 @@
 
 fsig::Params::Params(int argc, char **argv)
 {
-    if(argc < 4)
+    if(argc < 3)
         throw std::runtime_error("Not enough arguments.");
     try
     {
         mSourcePath = argv[1];
         mResultPath = argv[2];
-        mBlockSize = boost::lexical_cast<size_t>(argv[3]);
+        mBlockSize = argc > 3 ? boost::lexical_cast<size_t>(argv[3]) : mBlockSize;
 
         check_path(mSourcePath);
         mSourceFileSize = boost::filesystem::file_size(mSourcePath);

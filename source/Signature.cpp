@@ -25,10 +25,9 @@ fsig::Signature::Signature(const fsig::Params && params)
 
             //Calc hash
             std::string data(buf.get(), readed);
-            std::string hash;
 
             fsig::IDataProcessorSPtr processor = create_dataprocessor(mParams);
-            processor->process_data(data, hash);
+            std::string hash = processor->process_data(data);
 
             //Write hash
             writer->write_data(i, hash);
