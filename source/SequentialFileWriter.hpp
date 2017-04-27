@@ -8,6 +8,7 @@
 #include <condition_variable>
 
 #include "IWriter.hpp"
+#include "CycleWorker.hpp"
 
 namespace fsig
 {
@@ -19,7 +20,8 @@ struct SequentialFileWriter : IWriter
     virtual bool write_data(const size_t index, const std::string & data) override;
 
 private:
-    void try_write();
+    void writeToDisk();
+    void createThread();
 
 private:
     const std::string mFileName;
@@ -28,8 +30,10 @@ private:
 
     std::deque<std::string> mStorage;
 
-    std::recursive_mutex mStorageMutex;
+    std::mutex mStorageMutex;
     std::mutex mWriteMutex;
+
+    CycleWorker mWriteWorker;
 };
 
 } //ns fsig
