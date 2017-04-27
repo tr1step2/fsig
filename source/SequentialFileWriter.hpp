@@ -15,7 +15,6 @@ namespace fsig
 struct SequentialFileWriter : IWriter
 {
     SequentialFileWriter(const std::string & filename, size_t sequencesSize);
-    ~SequentialFileWriter();
 
     virtual bool write_data(const size_t index, const std::string & data) override;
 

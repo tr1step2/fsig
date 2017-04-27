@@ -12,15 +12,6 @@ fsig::SequentialFileWriter::SequentialFileWriter(const std::string & filename, s
 {
 }
 
-fsig::SequentialFileWriter::~SequentialFileWriter()
-{
-    std::lock_guard<std::recursive_mutex> lockStorage(mStorageMutex);
-    if (mStorage.size() != 0)
-    {
-        throw std::runtime_error("Bad finish. Some data not written.");
-    }
-}
-
 bool fsig::SequentialFileWriter::write_data(const size_t index, const std::string & data)
 {
     std::lock_guard<std::recursive_mutex> lockStorage(mStorageMutex);
