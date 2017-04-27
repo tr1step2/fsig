@@ -1,6 +1,5 @@
 #include "ThreadPool.hpp"
 
-
 fsig::ThreadPool::ThreadPool(size_t size)
     : mWorking(new boost::asio::io_service::work(mService))
 {

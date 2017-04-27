@@ -1,10 +1,7 @@
-#include <iostream>
-
 #include <fstream>
 #include <cstring>
 
 #include "TextFileReader.hpp"
-
 
 fsig::TextFileReader::TextFileReader(const std::string & filename)
     : mFilename(filename)

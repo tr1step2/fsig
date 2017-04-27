@@ -47,7 +47,6 @@ void fsig::SequentialFileWriter::writeToDisk()
         mLastIndex += i;
 
         //copy
-        storageCopy.reserve(storageCopy.size());
         std::copy(mStorage.begin(), mStorage.begin() + i, std::back_inserter(storageCopy));
 
         //delete

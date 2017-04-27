@@ -3,8 +3,6 @@
 #include "SequentialFileWriter.hpp"
 #include "Hasher.hpp"
 
-#include <iostream>
-
 fsig::Signature::Signature(const fsig::Params && params)
     : mParams(params)
     , mThreadPool(std::thread::hardware_concurrency() * 2)
@@ -12,7 +10,6 @@ fsig::Signature::Signature(const fsig::Params && params)
     fsig::IWriterSPtr writer = create_writer(mParams);
 
     const size_t blockSize = mParams.getBlockSize();
-    const size_t fileSize = mParams.getSourceFileSize();
     const size_t maxIndex = mParams.getMaxIndex();
 
     for(size_t i = 0; i <= maxIndex; ++i)
@@ -26,11 +23,7 @@ fsig::Signature::Signature(const fsig::Params && params)
             const size_t readed = reader->read_data(blockSize * i, buf.get(), blockSize);
 
             //Calc hash
-            std::string data(buf.get(), readed + 1);
-            data[readed] = 0;
-
-            std::cout << "last char " << (int)*(data.data() + readed - 1) << std::endl;
-            std::cout << "end  char " << (int)*(data.data() + readed) << std::endl;
+            std::string data(buf.get(), readed);
 
             fsig::IDataProcessorSPtr processor = create_dataprocessor(mParams);
             std::string hash = processor->process_data(data);
