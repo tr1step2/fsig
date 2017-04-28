@@ -7,6 +7,7 @@ fsig::Signature::Signature(const fsig::Params && params)
     : mParams(params)
     , mThreadPool(std::thread::hardware_concurrency() * 2)
 {
+    fsig::IReaderSPtr reader = create_reader(mParams);
     fsig::IWriterSPtr writer = create_writer(mParams);
 
     const size_t blockSize = mParams.getBlockSize();
@@ -14,11 +15,10 @@ fsig::Signature::Signature(const fsig::Params && params)
 
     for(size_t i = 0; i <= maxIndex; ++i)
     {
-        mThreadPool.add([this, i, blockSize, writer]()
+        mThreadPool.add([this, i, blockSize, reader, writer]()
         {
             //Read
             std::unique_ptr<char[]> buf(new char[blockSize]);
-            fsig::IReaderSPtr reader = create_reader(mParams);
 
             const size_t readed = reader->read_data(blockSize * i, buf.get(), blockSize);
 

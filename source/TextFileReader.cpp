@@ -1,24 +1,17 @@
 #include <fstream>
 #include <cstring>
 
+#include "Constants.hpp"
 #include "TextFileReader.hpp"
-
-namespace fsig
-{
-namespace constants
-{
-    constexpr size_t defaultreadBufferSize = 10 * 1024 * 1024;
-}
-}
 
 fsig::TextFileReader::TextFileReader(const std::string & filename)
     : mStream(filename, std::ifstream::in)
-    , mBuffer(new char[fsig::constants::defaultreadBufferSize])
+    , mBuffer(new char[fsig::constants::defaultReadBufferSize])
 {
     if(!mStream)
         throw std::runtime_error("Can't open file to read: " + filename);
 
-    mStream.rdbuf()->pubsetbuf(mBuffer.get(), fsig::constants::defaultreadBufferSize);
+    mStream.rdbuf()->pubsetbuf(mBuffer.get(), fsig::constants::defaultReadBufferSize);
 }
 
 size_t fsig::TextFileReader::read_data(const size_t offset, char * buf, const size_t size)

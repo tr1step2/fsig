@@ -3,15 +3,8 @@
 #include <algorithm>
 #include <vector>
 
+#include "Constants.hpp"
 #include "SequentialFileWriter.hpp"
-
-namespace fsig
-{
-namespace constants
-{
-    constexpr size_t defaultWriteInterval = 150;
-}
-}
 
 fsig::SequentialFileWriter::SequentialFileWriter(const std::string & filename, size_t sequencesSize)
     : mFileName(filename)
