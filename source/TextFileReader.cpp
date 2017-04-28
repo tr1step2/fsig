@@ -5,7 +5,7 @@
 #include "TextFileReader.hpp"
 
 fsig::TextFileReader::TextFileReader(const std::string & filename)
-    : mStream(filename, std::ifstream::in)
+    : mStream(filename, std::ifstream::binary)
     , mBuffer(new char[fsig::constants::defaultReadBufferSize])
 {
     if(!mStream)

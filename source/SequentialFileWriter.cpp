@@ -56,8 +56,8 @@ void fsig::SequentialFileWriter::writeToDisk()
 
     std::lock_guard<std::mutex> writeLock(mWriteMutex);
 
-    std::ofstream ofs(mFileName, std::ios_base::app);
+    std::ofstream ofs(mFileName, std::ios_base::app | std::ofstream::binary);
 
-    std::ostream_iterator<std::string> outIterator(ofs, "");
+    std::ostream_iterator<std::string> outIterator(ofs);
     std::copy(storageCopy.begin(), storageCopy.end(), outIterator);
 }
