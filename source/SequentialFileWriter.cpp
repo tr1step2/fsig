@@ -5,6 +5,14 @@
 
 #include "SequentialFileWriter.hpp"
 
+namespace fsig
+{
+namespace constants
+{
+    constexpr size_t defaultWriteInterval = 150;
+}
+}
+
 fsig::SequentialFileWriter::SequentialFileWriter(const std::string & filename, size_t sequencesSize)
     : mFileName(filename)
     , mSequencesSize(sequencesSize)
@@ -18,7 +26,7 @@ void fsig::SequentialFileWriter::createThread()
     mWriteWorker.start([this]()
     {
         writeToDisk();
-    }, 150);
+    }, fsig::constants::defaultWriteInterval);
 }
 
 bool fsig::SequentialFileWriter::write_data(const size_t index, const std::string & data)

@@ -9,7 +9,7 @@ endif()
 aux_source_directory(./source SRC_LIST)
 
 include_directories(${BOOST_INCLUDE_PATH}
-                    ${CMAKE_CURRENT_SOURCE_DIR}/../common/)
+                    ${CMAKE_CURRENT_SOURCE_DIR}/include)
 link_directories(${BOOST_LIBRARY_PATH})
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
@@ -25,6 +25,10 @@ if(CMAKE_COMPILER_IS_GNUCXX)
         pthread
     )
 else()
+    if(CMAKE_BUILD_TYPE EQUAL "DEBUG")
+        set(DEB "-gd")
+    endif(CMAKE_BUILD_TYPE EQUAL "DEBUG")
+	
     target_link_libraries(${PROJECT_NAME}
         libboost_system-vc140-mt${DEB}-1_64
         libboost_date_time-vc140-mt${DEB}-1_64
