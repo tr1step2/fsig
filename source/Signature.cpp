@@ -5,7 +5,7 @@
 
 fsig::Signature::Signature(const fsig::Params && params)
     : mParams(params)
-    , mThreadPool(std::thread::hardware_concurrency() * 2)
+    , mThreadPool(std::thread::hardware_concurrency())
 {
     fsig::IReaderSPtr reader = create_reader(mParams);
     fsig::IWriterSPtr writer = create_writer(mParams);
