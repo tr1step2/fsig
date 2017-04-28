@@ -21,5 +21,8 @@ size_t fsig::TextFileReader::read_data(const size_t offset, char * buf, const si
     mStream.seekg(offset, std::ios_base::beg);
     mStream.read(buf, size);
 
+	if (mStream.fail())
+		throw std::runtime_error("Fail while read data.");
+
     return mStream.gcount();
 }
