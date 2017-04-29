@@ -22,8 +22,8 @@ private:
     std::string mSourcePath;
     std::string mResultPath;
     size_t mBlockSize;
-    size_t mMaxIndex;
 
+    size_t mMaxIndex;
     size_t mSourceFileSize;
 };
 

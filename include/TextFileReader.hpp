@@ -17,7 +17,6 @@ struct TextFileReader : IReader
 private:
     std::ifstream mStream;
     std::mutex mReadMutex;
-    std::unique_ptr<char[]> mBuffer;
 };
 
 } //ns fsig

@@ -11,6 +11,6 @@ int main(int argc, char ** argv)
     }
     catch(const std::exception & e)
     {
-        std::cout << "Error occured. Message: " << e.what();
+        std::cout << "Error: " << e.what() << std::endl;
     }
 }

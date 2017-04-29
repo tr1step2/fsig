@@ -23,7 +23,6 @@ fsig::Signature::Signature(const fsig::Params && params)
 			{
 				//Read
 				std::unique_ptr<char[]> buf(new char[blockSize]);
-
 				const size_t readed = reader->read_data(blockSize * i, buf.get(), blockSize);
 
 				//Calc hash
