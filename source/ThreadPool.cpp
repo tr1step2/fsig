@@ -16,7 +16,7 @@ fsig::ThreadPool::ThreadPool(size_t size)
 
 fsig::ThreadPool::~ThreadPool()
 {
-    mService.stop();
+    stop();
     wait_all();
 }
 
@@ -24,4 +24,9 @@ void fsig::ThreadPool::wait_all()
 {
     mWorking.reset();
     mThreadGroup.join_all();
+}
+
+void fsig::ThreadPool::stop()
+{
+    mService.stop();
 }

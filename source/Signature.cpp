@@ -36,7 +36,8 @@ fsig::Signature::Signature(const fsig::Params && params)
 			}
 			catch (std::exception & e)
 			{
-				std::cout << e.what() << std::endl;
+                mExceptionManager.add(e);
+                stop();
 			}
         });
     }
@@ -45,6 +46,13 @@ fsig::Signature::Signature(const fsig::Params && params)
 void fsig::Signature::wait()
 {
     mThreadPool.wait_all();
+    mExceptionManager.throwAll();
+}
+
+void fsig::Signature::stop()
+{
+    mThreadPool.stop();
+    //TODO: impl stop all threads
 }
 
 fsig::IReaderSPtr fsig::Signature::create_reader(const Params & params)

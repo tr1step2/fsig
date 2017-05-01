@@ -13,6 +13,7 @@ public:
     ~ThreadPool();
 
     void wait_all();
+    void stop();
 
     template <typename Work>
     void add(Work work)

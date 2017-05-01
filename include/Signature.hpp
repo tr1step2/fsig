@@ -4,6 +4,7 @@
 
 #include "Params.hpp"
 #include "ThreadPool.hpp"
+#include "ExceptionManager.hpp"
 
 #include "IReader.hpp"
 #include "IWriter.hpp"
@@ -19,6 +20,8 @@ struct Signature
     void wait();
 
 private:
+    void stop();
+
     IReaderSPtr create_reader(const Params & params);
     IWriterSPtr create_writer(const Params & params);
     IDataProcessorSPtr create_dataprocessor(const Params & params);
@@ -26,6 +29,7 @@ private:
 private:
     Params mParams;
     ThreadPool mThreadPool;
+    ExceptionManager mExceptionManager;
 };
 
 } //ns fsig
