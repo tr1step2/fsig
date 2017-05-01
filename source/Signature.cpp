@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "Signature.hpp"
 #include "TextFileReader.hpp"
 #include "SequentialFileWriter.hpp"
@@ -52,7 +50,6 @@ void fsig::Signature::wait()
 void fsig::Signature::stop()
 {
     mThreadPool.stop();
-    //TODO: impl stop all threads
 }
 
 fsig::IReaderSPtr fsig::Signature::create_reader(const Params & params)

@@ -56,7 +56,9 @@ void fsig::Params::check_path(const std::string & path)
     if (!boost::filesystem::exists(path))
     {
         boost::filesystem::path full_path(boost::filesystem::current_path());
-        full_path.concat("\\" + path);
+        full_path += boost ::filesystem::path::preferred_separator;
+        full_path += path;
+
         if (!boost::filesystem::exists(full_path))
             throw std::runtime_error("File " + path + " should exists");
     }
