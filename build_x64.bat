@@ -21,5 +21,3 @@ msbuild fsig.vcxproj /p:Configuration=%CONF% /p:Platform=%PLATF% /maxcpucount
 
 REM cd back
 cd ..
-
-REM /maxcpucount

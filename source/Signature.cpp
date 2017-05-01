@@ -17,26 +17,26 @@ fsig::Signature::Signature(const fsig::Params && params)
     {
         mThreadPool.add([this, i, blockSize, reader, writer]()
         {
-			try
-			{
-				//Read
-				std::unique_ptr<char[]> buf(new char[blockSize]);
-				const size_t readed = reader->read_data(blockSize * i, buf.get(), blockSize);
+            try
+            {
+                //Read
+                std::unique_ptr<char[]> buf(new char[blockSize]);
+                const size_t readed = reader->read_data(blockSize * i, buf.get(), blockSize);
 
-				//Calc hash
-				std::string data(buf.get(), readed);
+                //Calc hash
+                std::string data(buf.get(), readed);
 
-				fsig::IDataProcessorSPtr processor = create_dataprocessor(mParams);
-				std::string hash = processor->process_data(data);
+                fsig::IDataProcessorSPtr processor = create_dataprocessor(mParams);
+                std::string hash = processor->process_data(data);
 
-				//Write hash
-				writer->write_data(i, hash);
-			}
-			catch (std::exception & e)
-			{
+                //Write hash
+                writer->write_data(i, hash);
+            }
+            catch (std::exception & e)
+            {
                 mExceptionManager.add(e);
                 stop();
-			}
+            }
         });
     }
 }
