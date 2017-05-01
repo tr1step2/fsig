@@ -22,7 +22,7 @@ fsig::Params::Params(int argc, char **argv)
     }
     catch(const boost::bad_lexical_cast &)
     {
-        throw std::runtime_error("Bad size argument.");
+        throw std::runtime_error("Wrong argument block_size.");
     }
 }
 
